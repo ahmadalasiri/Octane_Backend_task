@@ -1,0 +1,5 @@
+{
+  "watch": ["src", "swagger.json", "swagger.yaml", "z_test", ".env", "public"],
+  "ext": ".ts,.js,.json,.yaml, .html",
+  "ignore": ["__test__"]
+}
