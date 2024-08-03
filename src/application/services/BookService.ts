@@ -1,8 +1,7 @@
-// src/domain/services/BookService.ts
 import { inject, injectable } from 'tsyringe';
 
-import type { IBookRepository } from '../../domain/IBookRepository';
 import { Book } from '../../domain/entities/book';
+import type { IBookRepository } from '../interfaces/IBookRepository';
 
 @injectable()
 export class BookService {

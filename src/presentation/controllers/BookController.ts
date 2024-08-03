@@ -1,4 +1,3 @@
-// src/presentation/controllers/BookController.ts
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { container } from 'tsyringe';

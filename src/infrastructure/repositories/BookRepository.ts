@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { injectable } from 'tsyringe';
 
-import { IBookRepository } from '../../domain/IBookRepository';
+import { IBookRepository } from '../../application/interfaces/IBookRepository';
 import { Book } from '../../domain/entities/book';
 import { pgClient } from '../database';
 

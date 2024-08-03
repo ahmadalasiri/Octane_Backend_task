@@ -1,10 +1,13 @@
-// src/di/container.ts
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 
-// BookRepository
 import { BookRepository } from '../infrastructure/repositories/BookRepository';
+import { UserRepository } from '../infrastructure/repositories/UserRepository';
 
 container.register('BookRepository', {
   useClass: BookRepository,
+});
+
+container.register('UserRepository', {
+  useClass: UserRepository,
 });
