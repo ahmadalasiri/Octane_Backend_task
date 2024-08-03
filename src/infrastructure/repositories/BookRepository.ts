@@ -14,12 +14,12 @@ export class BookRepository implements IBookRepository {
   }
 
   // Method to create a new book in the database
-  public async create(title: string, author: string, numOfPages: number): Promise<void> {
+  public async create(book: Omit<Book, 'bookId' | 'createdAt'>): Promise<void> {
     const query = `
       INSERT INTO books (title, author, num_of_pages)
       VALUES ($1, $2, $3)
     `;
-    const values = [title, author, numOfPages];
+    const values = [book.title, book.author, book.numOfPages];
 
     await this.client.query(query, values);
   }
@@ -38,6 +38,6 @@ export class BookRepository implements IBookRepository {
 
     const result = await this.client.query(query);
 
-    return result.rows.map(row => new Book(row.id, row.title, row.author, row.num_of_pages));
+    return result.rows.map(row => new Book(row.book_id, row.title, row.author, row.num_of_pages, row.unique_pages_read));
   }
 }

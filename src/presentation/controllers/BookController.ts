@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import { container } from 'tsyringe';
 
 import { BookService } from '../../application/services/BookService';
+import { Book } from '../../domain/entities/book';
 import customResponse from '../../utils/customResponse';
 
 export class BookController {
@@ -15,7 +16,8 @@ export class BookController {
   // Handler to create a new book
   public createBook = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const { title, author, numOfPages } = req.body;
-    await this.bookService.createBook(title, author, numOfPages);
+    const book: Omit<Book, 'bookId' | 'createdAt'> = { title, author, numOfPages };
+    await this.bookService.createBook(book);
     res.status(201).json({ message: 'Book created successfully' });
   });
 
