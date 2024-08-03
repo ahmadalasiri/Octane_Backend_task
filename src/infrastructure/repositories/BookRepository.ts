@@ -16,8 +16,8 @@ export class BookRepository implements IBookRepository {
   // Method to create a new book in the database
   public async create(book: Omit<Book, 'bookId' | 'createdAt'>): Promise<void> {
     const query = `
-      INSERT INTO books (title, author, num_of_pages)
-      VALUES ($1, $2, $3)
+      INSERT INTO books (num_of_pages)
+      VALUES ($1)
     `;
     const values = [book.numOfPages];
 

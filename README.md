@@ -2,8 +2,6 @@
 
 # Getting Started
 
-# Getting Started
-
 ```bash
 
 # Clone the repository
@@ -11,9 +9,6 @@ git clone https://github.com/ahmadalasiri/Octane_Backend_task.git
 
 # Go into the repository
 cd Octane_Backend_task
-
-# Using Docker compose 🐳
-docker compose up
 
 # Using npm 📦
 npm install
@@ -23,6 +18,10 @@ npm run migration:run
 
 # Start the server in development mode
 npm run start:dev
+
+# Using Docker compose 🐳
+docker compose up
+
 ```
 
 # Project Structure
@@ -62,9 +61,6 @@ octane-backend-junior-level-task/
     │   │   ├── index.ts
     │   │   └── prodLogger.ts
     ├── infrastructure/
-    │   ├── repositories/
-    │   │   ├── BookRepository.ts
-    │   │   └── ReadingIntervalRepository.ts
     │   └── database/
     │   │    ├── index.ts
     │   │    └── seeds/
