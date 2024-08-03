@@ -18,6 +18,10 @@ const validateEnv = cleanEnv(process.env, {
   DB_NAME: str(),
 
   FRONTEND_URL: str(),
+
+  SALT_ROUNDS: num(),
+  JWT_SECRET_KEY: str(),
+  JWT_EXPIRATION: str(),
 });
 
 export default validateEnv;

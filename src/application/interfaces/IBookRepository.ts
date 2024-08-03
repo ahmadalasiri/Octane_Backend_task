@@ -1,4 +1,4 @@
-import { Book } from '../domain/entities/book';
+import { Book } from '../../domain/entities/book';
 
 export interface IBookRepository {
   create(book: Book): Promise<void>;
