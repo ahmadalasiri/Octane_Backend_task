@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
 import env from '../../config/validateEnv';
-import logger from '../../helpers/log';
 
 dotenv.config();
 
@@ -16,14 +15,9 @@ export const pgClient = (): Pool => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
     });
-
     client.on('error', err => {
       console.error('Unexpected error on idle client', err);
       process.exit(-1);
-    });
-
-    client.on('connect', () => {
-      logger.info(`Database Connected ✌️ ${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`);
     });
   }
   return client;

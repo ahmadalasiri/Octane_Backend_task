@@ -3,24 +3,22 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import path from 'path';
 import 'reflect-metadata';
 import xss from 'xss-clean';
 
 import env from './config/validateEnv';
+import './di/container';
 import { notFound } from './domain/exceptions/NotFoundException';
 import './domain/exceptions/shutdownHandler';
-import { pgClient } from './infrastructure/database';
 import { errorMiddleware } from './presentation/middlewares/errorHandlingMiddleware';
 import { compression, cors, limiter } from './presentation/middlewares/middlewares';
-import { routes } from './presentation/routes/routes';
-import { Routes } from './types/routes.interface';
+import routes from './presentation/routes';
 
 class App {
   public app: express.Application;
   public port: number | string;
   public env: string;
-  private routes: Routes[];
+  private routes: any;
 
   static instance: App | null = null;
   private constructor() {
@@ -45,10 +43,7 @@ class App {
     return this.app;
   }
 
-  private connectToDatabase() {
-    let client = pgClient();
-    client.connect();
-  }
+  private connectToDatabase() {}
   private initializeMiddlewares() {
     if (this.env === 'development' || this.env === 'staging') {
       const morganFmt = ':date[iso] | :remote-addr | ":method :url" :status :response-time ms';
@@ -72,14 +67,8 @@ class App {
     this.app.use(cookieParser());
   }
 
-  private initializeRoutes(routes: Routes[]) {
-    // serve the static files (index.html)
-    if (this.env !== 'production') {
-      this.app.use(express.static(path.join(__dirname, '../public')));
-    }
-    routes.forEach(route => {
-      this.app.use('/api/v1', route.router);
-    });
+  private initializeRoutes(routes: express.Router) {
+    this.app.use('/api/v1', routes);
   }
   private initializeErrorHandling() {
     this.app.use(notFound);

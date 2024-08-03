@@ -1,4 +1,5 @@
 import { createServer } from 'http';
+import 'reflect-metadata';
 
 import { App } from './app';
 import env from './config/validateEnv';
