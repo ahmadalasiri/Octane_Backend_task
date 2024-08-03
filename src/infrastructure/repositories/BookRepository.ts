@@ -19,7 +19,7 @@ export class BookRepository implements IBookRepository {
       INSERT INTO books (title, author, num_of_pages)
       VALUES ($1, $2, $3)
     `;
-    const values = [book.title, book.author, book.numOfPages];
+    const values = [book.numOfPages];
 
     await this.client.query(query, values);
   }
@@ -39,13 +39,13 @@ export class BookRepository implements IBookRepository {
   // Method to get the top five books based on the unique pages read
   public async getTopFiveBooks(): Promise<Book[]> {
     const query = `
-      SELECT book_id, title, author, num_of_pages, unique_pages_read
+      SELECT book_id, num_of_pages, unique_pages_read
       FROM books
       ORDER BY unique_pages_read DESC
       LIMIT 5
     `;
     const result = await this.client.query(query);
 
-    return result.rows.map(row => new Book(row.title, row.author, row.num_of_pages, row.book_id, row.unique_pages_read));
+    return result.rows.map(row => new Book(row.num_of_pages, row.book_id, row.unique_pages_read));
   }
 }

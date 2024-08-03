@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": { "ENV": "DB_HOST", "default": "localhost" },
+    "port": { "ENV": "DB_PORT", "default": "5432" },
+    "user": { "ENV": "DB_USER", "default": "postgres" },
+    "password": { "ENV": "DB_PASSWORD" },
+    "database": { "ENV": "DB_NAME" }
+  }
+}
