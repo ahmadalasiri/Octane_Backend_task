@@ -21,7 +21,7 @@ export class AuthService {
     // 2- Create a new user
     password = await bcrypt.hash(password, env.SALT_ROUNDS);
 
-    await this.userRepository.create(username, password);
+    await this.userRepository.create({ username, password });
     let user = await this.userRepository.findByUsername(username);
     if (!user) {
       throw new HttpException(500, 'Failed to create user');

@@ -15,8 +15,8 @@ export class BookController {
 
   // Handler to create a new book
   public createBook = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const { title, author, numOfPages } = req.body;
-    const book: Omit<Book, 'bookId' | 'createdAt'> = { title, author, numOfPages };
+    const { numOfPages } = req.body;
+    const book: Omit<Book, 'bookId' | 'createdAt'> = { numOfPages };
     await this.bookService.createBook(book);
     res.status(201).json({ message: 'Book created successfully' });
   });
