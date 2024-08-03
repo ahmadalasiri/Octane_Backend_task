@@ -15,12 +15,12 @@ export class UserRepository implements IUserRepository {
   }
 
   // Method to create a new user in the database
-  public async create(username: string, password: string): Promise<void> {
+  public async create(user: Pick<User, 'username' | 'password'>): Promise<void> {
     const query = `
       INSERT INTO users (username, password)
       VALUES ($1, $2)
     `;
-    const values = [username, password];
+    const values = [user.username, user.password];
 
     await this.client.query(query, values);
   }

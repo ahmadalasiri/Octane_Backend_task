@@ -19,8 +19,21 @@ export class ReadingIntervalRepository implements IReadingIntervalRepository {
       INSERT INTO reading_intervals (user_id, book_id, start_page, end_page)
       VALUES ($1, $2, $3, $4)
     `;
-    const values = [readingInterval.userId, readingInterval.bookId, readingInterval.startPage, readingInterval.endPage];
 
+    const values = [readingInterval.userId, readingInterval.bookId, readingInterval.startPage, readingInterval.endPage];
     await this.client.query(query, values);
+  }
+
+  public async getReadingIntervalsByBookId(bookId: number): Promise<ReadingInterval[] | null> {
+    const query = `
+      SELECT interval_id, user_id, book_id, start_page, end_page
+      FROM reading_intervals
+      WHERE book_id = $1
+    `;
+    const values = [bookId];
+
+    return this.client
+      .query(query, values)
+      .then(result => result.rows.map(row => new ReadingInterval(row.user_id, row.book_id, row.start_page, row.end_page, row.interval_id)));
   }
 }
