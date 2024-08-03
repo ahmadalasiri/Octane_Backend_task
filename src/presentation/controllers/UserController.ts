@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import { container } from 'tsyringe';
 
 import { UserService } from '../../application/services/UserService';
+import { User } from '../../domain/entities/user';
 import { Request, Response } from '../../types/generic';
 import customResponse from '../../utils/customResponse';
 
@@ -14,8 +15,8 @@ export class UserController {
 
   // Handler to create a new user
   public createUser = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const { username, password } = req.body;
-    await this.userService.createUser(username, password);
+    const user: Pick<User, 'username' | 'password'> = { username: req.body.username, password: req.body.password };
+    await this.userService.createUser(user);
     res.status(201).json({ message: 'User created successfully' });
   });
 
