@@ -27,7 +27,6 @@ export class UserRepository implements IUserRepository {
 
   // Method to find a user by their ID
   public async findById(userId: number): Promise<User | null> {
-    console.log('userId====?', userId);
     const query = `
       SELECT user_id, username, role, created_at
       FROM users

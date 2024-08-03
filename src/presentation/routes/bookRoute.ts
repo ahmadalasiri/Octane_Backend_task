@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { container } from 'tsyringe';
 
-// BookRepository
 import { BookController } from '../controllers/BookController';
 import { allowedTo, authenticateUser } from '../middlewares/authMiddleware';
 
