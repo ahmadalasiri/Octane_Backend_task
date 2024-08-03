@@ -14,12 +14,12 @@ export class BookRepository implements IBookRepository {
   }
 
   // Method to create a new book in the database
-  public async create(book: Book): Promise<void> {
+  public async create(title: string, author: string, numOfPages: number): Promise<void> {
     const query = `
-      INSERT INTO books (id, title, author, num_of_pages)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO books (title, author, num_of_pages)
+      VALUES ($1, $2, $3)
     `;
-    const values = [book.bookId, book.title, book.author, book.numOfPages];
+    const values = [title, author, numOfPages];
 
     await this.client.query(query, values);
   }
