@@ -24,20 +24,28 @@ export class BookRepository implements IBookRepository {
     await this.client.query(query, values);
   }
 
+  // Method to update the unique pages read for a book
+  public async updateUniquePagesRead(bookId: number, uniquePagesRead: number): Promise<void> {
+    const query = `
+      UPDATE books
+      SET unique_pages_read = $1
+      WHERE book_id = $2
+    `;
+    const values = [uniquePagesRead, bookId];
+
+    await this.client.query(query, values);
+  }
+
   // Method to get the top five books based on the unique pages read
   public async getTopFiveBooks(): Promise<Book[]> {
     const query = `
-      SELECT b.book_id, b.title, b.author, b.num_of_pages, b.created_at,
-            COUNT(DISTINCT r.start_page) + COUNT(DISTINCT r.end_page) AS unique_pages_read
-      FROM books b
-      JOIN reading_intervals r ON b.book_id = r.book_id
-      GROUP BY b.book_id, b.title, b.author, b.num_of_pages, b.created_at
+      SELECT book_id, title, author, num_of_pages, unique_pages_read
+      FROM books
       ORDER BY unique_pages_read DESC
-      LIMIT 5;
+      LIMIT 5
     `;
-
     const result = await this.client.query(query);
 
-    return result.rows.map(row => new Book(row.book_id, row.title, row.author, row.num_of_pages, row.unique_pages_read));
+    return result.rows.map(row => new Book(row.title, row.author, row.num_of_pages, row.book_id, row.unique_pages_read));
   }
 }
