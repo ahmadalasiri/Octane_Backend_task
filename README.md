@@ -86,6 +86,11 @@ octane-backend-junior-level-task/
     │   │   ├── healthz.ts
     │   │   └── readingIntervalRoutes.ts
     │   └── middlewares/
+    │       ├── validation/
+    │       │   ├── bookValidation.ts
+    │       │   ├── userValidation.ts
+    │       │   ├── readingIntervalValidation.ts
+    │       │   └── authValidation.ts
     │       ├── authMiddleware.ts
     │       ├── middlewares.ts
     │       └── errorHandlingMiddleware.ts
