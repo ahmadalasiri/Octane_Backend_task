@@ -1,4 +1,4 @@
-# Octane_Backend_junior_level_task
+# Octane_Backend
 
 # Getting Started
 
